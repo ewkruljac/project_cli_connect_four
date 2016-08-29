@@ -1,5 +1,7 @@
 class Board
 
+attr_reader :board
+
   def initialize
 
     @board = Array.new(6){ Array.new(7) }
@@ -176,5 +178,31 @@ class Board
     winner
 
   end
+
+#----------
+=begin
+  def defense_horizontal(player1_piece)
+
+    puts @board.class
+
+    block = 9
+
+    for x in 0..5
+      score = 0
+      for y in 0..6
+        if @board[x][y] == player1_piece
+          score += 1 
+          block = x-1 if score == 3
+        else
+          score = 0
+        end
+      end
+    end
+
+    puts "Block: #{block}"
+    block
+  end
+=end
+#----------
 
 end

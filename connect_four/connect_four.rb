@@ -1,16 +1,21 @@
 require "./board"
 require "./player"
+require "./ai"
 
 class ConnectFour
 
 #----------
 
-  def initialize
+  def initialize(num_players)
 
     @board = Board.new
-
     @player_1 = Player.new("Player 1", :x, @board)
-    @player_2 = Player.new("Player 2", :o, @board)
+
+    if num_players == 2
+      @player_2 = Player.new("Player 2", :o, @board)
+    else
+      @player_2 = AI.new("Dumb AI", :o, @board, @player_1)
+    end
 
     @current_player = @player_1
 
@@ -43,8 +48,7 @@ class ConnectFour
 #----------
 
   def check_victory
-    
-    #@board.winning_combo?(@current_player.piece)
+
     if @board.winning_combo?(@current_player.piece)
       @board.render
       puts "#{@current_player.name} wins!"
@@ -79,6 +83,15 @@ class ConnectFour
 
 end
 
-p = ConnectFour.new
+#----------
+
+
+
+puts "'1' for single player."
+puts "'2' for 2 players."
+num_players = gets.chomp.to_i
+
+
+p = ConnectFour.new(num_players)
 
 p.play
